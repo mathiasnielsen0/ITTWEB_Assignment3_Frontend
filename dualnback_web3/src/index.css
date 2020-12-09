@@ -64,6 +64,10 @@ code {
   border: 1px solid #ffffff29;
 }
 
+.board .board-row .highlight:hover {
+  background-color:#7679a2 !important;
+}
+
 .game-controls {
   display:flex;
   padding:8px;
