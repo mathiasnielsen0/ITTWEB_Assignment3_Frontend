@@ -3,7 +3,8 @@
 interface IProps {
     username: string,
     score: number,
-    index: number
+    index: number,
+    date: Date
 }
 
 interface IState {
@@ -52,9 +53,14 @@ export default class ScoreCard extends React.Component<IProps, IState> {
                                 {this.props.username}
                             </p>
                         </div>
-                        <div className={"col-6"}>
+                        <div className={"col-4"}>
                             <p>
                                 {this.props.score}
+                            </p>
+                        </div>
+                        <div className={"col-2"}>
+                            <p>
+                                {this.props.date.toDateString()}
                             </p>
                         </div>
                     </div>
