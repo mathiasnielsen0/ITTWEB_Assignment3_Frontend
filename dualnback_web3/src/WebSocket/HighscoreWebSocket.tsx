@@ -12,6 +12,7 @@ class HighscoreWebSocket{
 
         // Listen for messages
         socket.addEventListener('message', function (event) {
+            callback(event.data)
             console.log('Message from server ', event.data);
         });
     }
