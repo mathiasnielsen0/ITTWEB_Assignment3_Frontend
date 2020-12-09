@@ -53,7 +53,9 @@ code {
   height:100%;
   border: 1px solid #ffffff29;
 }
-
+.board .board-row .tile:hover {
+  background-color: #1c1b2d;
+}
 
 .board .board-row .highlight {
   background-color:#7679a2;

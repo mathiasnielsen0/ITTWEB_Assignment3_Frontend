@@ -10,6 +10,7 @@ interface IProps {
 interface IState {
     gameStarted: Boolean,
     currentScore: Number,
+    currentHighscore: Number,
 }
 
 export default class GamePage extends React.Component<IProps, IState> {
@@ -20,6 +21,7 @@ export default class GamePage extends React.Component<IProps, IState> {
         this.state = {
             gameStarted : false,
             currentScore : 0,
+            currentHighscore : 0,
         }
         
         this.startGame = this.startGame.bind(this);
@@ -37,6 +39,7 @@ export default class GamePage extends React.Component<IProps, IState> {
     resetScore() {
         this.setState({
             currentScore : 0,
+            gameStarted : false,
         })
     }
 

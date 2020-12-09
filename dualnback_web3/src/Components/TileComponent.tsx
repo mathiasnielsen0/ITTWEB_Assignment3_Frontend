@@ -25,7 +25,6 @@ export default class TileComponent extends React.Component<IProps, IState> {
     
     tileClicked() {
         this.props.TileClicked(
-            this.props.Highlight,
             this.props.Row,
             this.props.Col
         );
