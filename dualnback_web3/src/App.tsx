@@ -23,8 +23,6 @@ function App() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/game">Game</Nav.Link>
           <Nav.Link href="/highscores">Highscores</Nav.Link>
         </Nav>
       </Navbar.Collapse>
@@ -35,11 +33,8 @@ function App() {
           <Route path="/highscores">
             <Highscores />
           </Route>
-          <Route path="/game">
-            <Game />
-          </Route>
           <Route path="/">
-            <Home />
+            <Game />
           </Route>
         </Switch>
       </Container>
