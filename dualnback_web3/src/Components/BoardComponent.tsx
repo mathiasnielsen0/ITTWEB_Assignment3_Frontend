@@ -10,86 +10,118 @@ interface IProps {
 
 interface IState {
     currentHighlight: Number[],
-    tileHistory:Number[][],
     gameStarted: Boolean,
 }
 
 export default class BoardComponent extends React.Component<IProps, IState> {
+    private tileHistory : Number[][];
 
     private currentTileHistory: Number[][];
-    private userCurrentClickedHistory: Number[][];
+    private tilesAreClickable: Boolean;
+
+    private userClickedCountInSequence: Number;
 
     constructor(props: IProps) {
         super(props);
 
         this.state = {
             currentHighlight : [],
-            tileHistory : [[]],
             gameStarted : false,           
         }
-        this.currentTileHistory = [[]];
-        this.userCurrentClickedHistory = [[]];
+
+        this.tileHistory = [];
+        this.currentTileHistory = [];
+        this.tilesAreClickable = false;
+        this.userClickedCountInSequence = 0;
 
         this.tileWasClicked = this.tileWasClicked.bind(this);
+        this.addRandomTileToHistory = this.addRandomTileToHistory.bind(this);
+        this.runHighlightSequence = this.runHighlightSequence.bind(this);
+        this.checkIfCorrectTileClicked = this.checkIfCorrectTileClicked.bind(this);
     };
 
     componentWillReceiveProps(props: IProps) {
-        console.log(props);
-        if (props.startGame) {
+        console.log("component will receive props");
+        if (props.startGame && !this.props.startGame) {
             this.setState({
                 gameStarted: true,
             });
-            this.addRandomHighlight();
+            this.addRandomTileToHistory();
+            this.currentTileHistory = this.tileHistory;
+            this.runHighlightSequence();
+        }
+        else if (!props.startGame){
+            this.setState({
+                gameStarted: false,
+            });
         }
     }
 
-    tileWasClicked(correctTile: Boolean, row: Number, col : Number){
-
-        if (correctTile) {
-            let newTileHistory = this.state.tileHistory;
-            newTileHistory.push([row, col])
-            
-            this.setState({
-                tileHistory : newTileHistory,
-            })
-            console.log(newTileHistory);
-            this.addRandomHighlight();
-            this.currentTileHistory = this.state.tileHistory;
-            this.runHighlightSequence();
-            this.props.incementScore();
+    tileWasClicked(row: Number, col : Number){
+        if (this.tilesAreClickable){
+            if (this.checkIfCorrectTileClicked(row, col)) {
+                this.userClickedCountInSequence = +this.userClickedCountInSequence + 1;
+                
+                if (this.userClickedCountInSequence == this.tileHistory.length){
+                    console.log("reached end of sequence")
+                    this.addRandomTileToHistory();
+                    this.currentTileHistory = this.tileHistory;
+                    this.runHighlightSequence();
+                    this.props.incementScore();
+                    this.userClickedCountInSequence = 0;
+                }
+            }
+            else {
+                this.props.resetScore();
+                this.tileHistory = [];
+                this.userClickedCountInSequence = 0;
+            }
         }
-        else {
-            this.props.resetScore();
-        }
+        else
+            alert("Tiles not clickable")
+    }
 
+    checkIfCorrectTileClicked(row: Number, col : Number) : Boolean {
+        let currentTileSpot = this.tileHistory[this.userClickedCountInSequence as number];
+        if (currentTileSpot !== undefined && currentTileSpot[0] == row && currentTileSpot[1] == col){
+            return true;
+        }
+        return false;
     }
 
     runHighlightSequence() {
-        console.log("highlight sequence")
         setTimeout(() => {
-            console.log("currentTilehi length", this.currentTileHistory.length)
-            this.setState({
-                currentHighlight : this.currentTileHistory[0]
-            });
-            this.currentTileHistory = this.currentTileHistory.slice(1);
-            if(this.currentTileHistory.length > 0) {
+            if (this.currentTileHistory.length > 0 ){
+                console.log("highlight sequence length > 0")
+                this.setState({
+                    currentHighlight : this.currentTileHistory[0]
+                });
+
+                this.currentTileHistory = this.currentTileHistory.slice(1);
                 this.runHighlightSequence();
             }
-        }, 2000);
+            else
+            {
+                console.log("highlight sequence length ==== 0")
+
+                this.tilesAreClickable = true;
+                setTimeout(() => {
+                    this.setState({
+                        currentHighlight : [9,9]
+                    });
+                }, 1000)
+            }
+        }, 1000);
     }
 
 
-    componentDidMount() {
-        
-    }
-
-    addRandomHighlight(){
+    addRandomTileToHistory(){
+        console.log("Addrandom tile to history")
         var rowNo = Math.floor(Math.random() * 3);
         var colNo = Math.floor(Math.random() * 3);
-        var newCurreHightlight = [rowNo, colNo];
-        this.setState({
-            currentHighlight : newCurreHightlight
-        })
+        let newTileHistory = this.tileHistory;
+        newTileHistory.push([rowNo, colNo]);
+        this.tileHistory = newTileHistory
     }
     
 
@@ -102,9 +134,9 @@ export default class BoardComponent extends React.Component<IProps, IState> {
             <div className="board">
                 { rows.map((row, index) => (
                     <div className="board-row">
-                        <Tile TileClicked={this.tileWasClicked} key={"row" + row + "col" + 1} Row={rowNo} Col={0} Highlight={(rowNo == row && colNo == 0).valueOf()}></Tile>
-                        <Tile TileClicked={this.tileWasClicked} key={"row" + row + "col" + 2} Row={rowNo} Col={1} Highlight={(rowNo == row && colNo == 1).valueOf()}></Tile>
-                        <Tile TileClicked={this.tileWasClicked} key={"row" + row + "col" + 3} Row={rowNo} Col={2} Highlight={(rowNo == row && colNo == 2).valueOf()}></Tile>
+                        <Tile TileClicked={this.tileWasClicked} key={"row" + row + "col" + 1} Row={row} Col={0} Highlight={(rowNo == row && colNo == 0).valueOf()}></Tile>
+                        <Tile TileClicked={this.tileWasClicked} key={"row" + row + "col" + 2} Row={row} Col={1} Highlight={(rowNo == row && colNo == 1).valueOf()}></Tile>
+                        <Tile TileClicked={this.tileWasClicked} key={"row" + row + "col" + 3} Row={row} Col={2} Highlight={(rowNo == row && colNo == 2).valueOf()}></Tile>
                     </div>
                     )
                 )}
