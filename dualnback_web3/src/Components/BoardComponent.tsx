@@ -41,7 +41,6 @@ export default class BoardComponent extends React.Component<IProps, IState> {
     };
 
     componentWillReceiveProps(props: IProps) {
-        console.log("component will receive props");
         if (props.startGame && !this.props.startGame) {
             this.setState({
                 gameStarted: true,
@@ -63,7 +62,6 @@ export default class BoardComponent extends React.Component<IProps, IState> {
                 this.userClickedCountInSequence = +this.userClickedCountInSequence + 1;
                 
                 if (this.userClickedCountInSequence == this.tileHistory.length){
-                    console.log("reached end of sequence")
                     this.addRandomTileToHistory();
                     this.currentTileHistory = this.tileHistory;
                     this.runHighlightSequence();
@@ -74,11 +72,10 @@ export default class BoardComponent extends React.Component<IProps, IState> {
             else {
                 this.props.resetScore();
                 this.tileHistory = [];
+                this.currentTileHistory = [];
                 this.userClickedCountInSequence = 0;
             }
         }
-        else
-            alert("Tiles not clickable")
     }
 
     checkIfCorrectTileClicked(row: Number, col : Number) : Boolean {
@@ -92,7 +89,6 @@ export default class BoardComponent extends React.Component<IProps, IState> {
     runHighlightSequence() {
         setTimeout(() => {
             if (this.currentTileHistory.length > 0 ){
-                console.log("highlight sequence length > 0")
                 this.setState({
                     currentHighlight : this.currentTileHistory[0]
                 });
@@ -102,8 +98,6 @@ export default class BoardComponent extends React.Component<IProps, IState> {
             }
             else
             {
-                console.log("highlight sequence length ==== 0")
-
                 this.tilesAreClickable = true;
                 setTimeout(() => {
                     this.setState({
@@ -116,7 +110,6 @@ export default class BoardComponent extends React.Component<IProps, IState> {
 
 
     addRandomTileToHistory(){
-        console.log("Addrandom tile to history")
         var rowNo = Math.floor(Math.random() * 3);
         var colNo = Math.floor(Math.random() * 3);
         let newTileHistory = this.tileHistory;
