@@ -77,8 +77,6 @@ export default class BoardComponent extends React.Component<IProps, IState> {
                 this.userClickedCountInSequence = 0;
             }
         }
-        else
-            alert("Tiles not clickable")
     }
 
     checkIfCorrectTileClicked(row: Number, col : Number) : Boolean {
