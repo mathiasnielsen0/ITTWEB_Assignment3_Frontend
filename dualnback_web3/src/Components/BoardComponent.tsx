@@ -126,10 +126,10 @@ export default class BoardComponent extends React.Component<IProps, IState> {
         return(
             <div className="board">
                 { rows.map((row, index) => (
-                    <div className="board-row">
-                        <Tile TileClicked={this.tileWasClicked} key={"row" + row + "col" + 1} Row={row} Col={0} Highlight={(rowNo == row && colNo == 0).valueOf()}></Tile>
-                        <Tile TileClicked={this.tileWasClicked} key={"row" + row + "col" + 2} Row={row} Col={1} Highlight={(rowNo == row && colNo == 1).valueOf()}></Tile>
-                        <Tile TileClicked={this.tileWasClicked} key={"row" + row + "col" + 3} Row={row} Col={2} Highlight={(rowNo == row && colNo == 2).valueOf()}></Tile>
+                    <div className="board-row" key={"row" + row}>
+                        <Tile TileClicked={this.tileWasClicked} key={"row" + row + "col" + 1} Row={row} Col={0} Highlight={(rowNo == row && colNo == 0).valueOf()}/>
+                        <Tile TileClicked={this.tileWasClicked} key={"row" + row + "col" + 2} Row={row} Col={1} Highlight={(rowNo == row && colNo == 1).valueOf()}/>
+                        <Tile TileClicked={this.tileWasClicked} key={"row" + row + "col" + 3} Row={row} Col={2} Highlight={(rowNo == row && colNo == 2).valueOf()}/>
                     </div>
                     )
                 )}
