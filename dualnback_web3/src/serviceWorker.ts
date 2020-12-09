@@ -60,6 +60,9 @@ export function register(config?: Config) {
             }
         });
     }
+    else{
+        console.log("Not in production, service worker ignored");
+    }
 }
 
 function registerValidSW(swUrl: string, config?: Config) {

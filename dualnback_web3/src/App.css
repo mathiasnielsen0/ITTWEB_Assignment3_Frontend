@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.animate{
+  transition: transform ease-in-out 0.3s 0s, translateY ease-in-out 0.3s ;
+}
+.scale-1{
+  transform: scale(1);
+}
+.scale-0{
+  transform: scale(0);
+}
