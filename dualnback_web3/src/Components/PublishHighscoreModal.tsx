@@ -63,6 +63,7 @@ export default class CloseSessionConfirmModal extends React.Component<IModalProp
                         <div className="header-container">
                             <div className="text-xl width-left">Publish highscore</div>
                         </div>
+
                         <div className="body-container ">
                             <div>
                                 Do you want to publish your highscore: {this.props.highScore}?
