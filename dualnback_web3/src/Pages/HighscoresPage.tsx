@@ -1,5 +1,6 @@
 import React from "react";
 import ScoreCard from "../Components/ScoreCard";
+import WebSocket from "../WebSocket/HighscoreWebSocket"
 
 
 interface IProps {
@@ -25,8 +26,14 @@ export default class HighscoresPage extends React.Component<IProps, IState> {
             this.sc[i] = <ScoreCard key={i} index={i+1} username={"Hans"} score={100} date={new Date()}/>
         }
         this.setState({scorecard: this.sc});
+
+        WebSocket.start(this.websocketResponse)
     }
     sc: any = [];
+
+    websocketResponse = (message:any) => {
+        console.log("websocketResponse")
+    }
 
     addScore = () =>{
         //this.sc.splice(2,0 , <ScoreCard key={this.sc.length+1} index={this.sc.length} username={"Hansel"} score={300} />);
