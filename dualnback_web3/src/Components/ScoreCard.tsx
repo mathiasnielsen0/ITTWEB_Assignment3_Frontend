@@ -42,9 +42,7 @@ export default class ScoreCard extends React.Component<IProps, IState> {
 
     render() {
         return (
-            <div className={"row relative animate " + this.state.class}>
-                <div className={"absolute col-12"}>
-                    <div className={"row"}>
+            <div className={"row animate score pt-3 pb-3 " + this.state.class}>
                         <div className={"col-2"}>
                                 {this.props.index}
                         </div>
@@ -63,8 +61,6 @@ export default class ScoreCard extends React.Component<IProps, IState> {
                                 {this.props.date.toDateString()}
                             </p>
                         </div>
-                    </div>
-                </div>
             </div>
         )
     }
