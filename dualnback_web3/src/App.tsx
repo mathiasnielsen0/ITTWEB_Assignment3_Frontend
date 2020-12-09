@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Highscores from "./Pages/HighscoresPage"
 import Game from "./Pages/GamePage"
+import JwtTokenApi from "./Apis/JwtTokenApi"
 
 import { Navbar, Nav, NavItem, NavDropdown, Container } from 'react-bootstrap'
 import Home from "./Pages/HomePage"
@@ -14,6 +15,7 @@ import {
 } from "react-router-dom";
 
 function App() {
+  JwtTokenApi.getJwtToken();
   return (
     <Router>
     <div className="App">

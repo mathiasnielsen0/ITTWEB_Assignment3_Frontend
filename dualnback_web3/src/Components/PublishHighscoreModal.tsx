@@ -4,6 +4,8 @@ interface IModalProps {
     show: Boolean,
     hideModal: any,
     highScore: Number,
+    setUsername: any,
+    publishResult: any,
 }
 
 interface IModalState {
@@ -40,6 +42,7 @@ export default class CloseSessionConfirmModal extends React.Component<IModalProp
 
     publishResult() {
         this.props.hideModal();
+        this.props.publishResult();
         this.setState({
             show: false
         })
@@ -48,7 +51,8 @@ export default class CloseSessionConfirmModal extends React.Component<IModalProp
     private usernameChanged(e: any) {
         this.setState({
             username: e.target.value
-        })
+        });
+        this.props.setUsername(e.target.value);
     }
 
     render() {
