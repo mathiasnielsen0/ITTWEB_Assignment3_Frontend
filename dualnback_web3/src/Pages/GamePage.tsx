@@ -49,7 +49,6 @@ export default class GamePage extends React.Component<IProps, IState> {
         })
     }
 
-
     render(){
         return (
             <div id="GamePageWrapper">
