@@ -77,7 +77,7 @@ export default class GamePage extends React.Component<IProps, IState> {
     render(){
         return (
             <div id="GamePageWrapper">
-                <BoardComponent incementScore={this.incrementScore} resetScore={this.resetScore} startGame={this.state.gameStarted}></BoardComponent>
+                <BoardComponent incementScore={this.incrementScore} resetScore={this.resetScore} startGame={this.state.gameStarted}/>
                 <div className="game-controls">
                     {!this.state.gameStarted &&
                         <a onClick={this.startGame} className="btn btn-primary">Start game</a>
@@ -91,7 +91,7 @@ export default class GamePage extends React.Component<IProps, IState> {
                     </div>
                     <a onClick={this.publishHighscore} className="ml-5 btn btn-primary">Publish highscore</a>
                 </div>
-                <PublishHighscoreModal show={this.state.showPublishHighscoreModal} highScore={this.state.currentHighscore} hideModal={this.hideModal}></PublishHighscoreModal>
+                <PublishHighscoreModal show={this.state.showPublishHighscoreModal} highScore={this.state.currentHighscore} hideModal={this.hideModal}/>
             </div>
       )
     }
