@@ -11,6 +11,14 @@ interface IState {
     scorecard:any[]
 }
 
+class HighScore{
+    _id?: String
+    name?:String
+    score?: Number
+    date?: Date
+    __v?:Number
+}
+
 export default class HighscoresPage extends React.Component<IProps, IState> {
     
     constructor(props: IProps) {
@@ -21,37 +29,36 @@ export default class HighscoresPage extends React.Component<IProps, IState> {
     }
 
     componentDidMount(): void {
-        
-        for (let i = 0; i < 10; i++) {
-            this.sc[i] = <ScoreCard key={i} index={i+1} username={"Hans"} score={100} date={new Date()}/>
-        }
-        this.setState({scorecard: this.sc});
 
         WebSocket.start(this.websocketResponse)
     }
     sc: any = [];
 
     websocketResponse = (message:any) => {
-        console.log("websocketResponse")
-        console.log(message)
+        let index = 1;
+        message.forEach((element:any) => {
+            this.sc.push(<ScoreCard key={element._id} index={index} username={element.name} score={element.score} date={element.date}/>)
+            index++;
+        });
+        this.setState({scorecard: this.sc});
     }
 
-    addScore = () =>{
-        //this.sc.splice(2,0 , <ScoreCard key={this.sc.length+1} index={this.sc.length} username={"Hansel"} score={300} />);
-        this.sc[this.sc.length] = <ScoreCard key={this.sc.length+1} index={this.sc.length} username={"Hansel"} score={300} date={new Date()} />;
-        console.log(this.sc.length);
-        this.setState({scorecard: this.sc});
-    };
+    // addScore = () =>{
+    //     //this.sc.splice(2,0 , <ScoreCard key={this.sc.length+1} index={this.sc.length} username={"Hansel"} score={300} />);
+    //     this.sc[this.sc.length] = <ScoreCard key={this.sc.length+1} index={this.sc.length} username={"Hansel"} score={300} date={new Date()} />;
+    //     console.log(this.sc.length);
+    //     this.setState({scorecard: this.sc});
+    // };
     
     render() {
         return (
             <div id="HomepageWrapper">
-                <p>
+                {/* <p>
                     THIS IS Highscore
                 </p>
                 <div>
                     <button onClick={this.addScore}>Click me</button>
-                </div>
+                </div> */}
                 <div className={"container"}>
                     <div className={"row"}>
                         <div className={"col-2"}>

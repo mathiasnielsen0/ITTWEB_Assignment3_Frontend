@@ -53,7 +53,7 @@ export default class ScoreCard extends React.Component<IProps, IState> {
                 </div>
                 <div className={"col-2"}>
                     <p>
-                        {this.props.date.toDateString()}
+                        {this.props.date}
                     </p>
                 </div>
             </div>
