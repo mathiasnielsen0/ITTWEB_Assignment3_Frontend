@@ -79,7 +79,7 @@ function update(request) {
 
 
 async function GetCacheFiles() {
-    return fetch( "https://" + window.location.hostname + "/asset-manifest.json", {
+    return fetch( "https://intense-wildwood-97387" + "/asset-manifest.json", {
         method: "GET"
     }).then(function (response) {
         if (response.ok) {
