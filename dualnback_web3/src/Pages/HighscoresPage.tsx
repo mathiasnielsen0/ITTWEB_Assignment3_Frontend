@@ -29,18 +29,12 @@ export default class HighscoresPage extends React.Component<IProps, IState> {
         let sc:any = [];
         let index = 1;
         message.forEach((element:any) => {
-            sc.push(<ScoreCard key={element._id} index={index} username={element.name} score={element.score} date={element.date}/>)
+            let d: Date = new Date(element.date);
+            sc.push(<ScoreCard key={element._id} index={index} username={element.name} score={element.score} date={d}/>)
             index++;
         });
         this.setState({scorecard: sc});
-    }
-
-    // addScore = () =>{
-    //     //this.sc.splice(2,0 , <ScoreCard key={this.sc.length+1} index={this.sc.length} username={"Hansel"} score={300} />);
-    //     this.sc[this.sc.length] = <ScoreCard key={this.sc.length+1} index={this.sc.length} username={"Hansel"} score={300} date={new Date()} />;
-    //     console.log(this.sc.length);
-    //     this.setState({scorecard: this.sc});
-    // };
+    };
     
     render() {
         return (

@@ -38,22 +38,26 @@ export default class ScoreCard extends React.Component<IProps, IState> {
     render() {
         return (
             <div className={"row animate score pt-3 pb-3 " + this.state.class}>
-                <div className={"col-2"}>
-                    {this.props.index}
+                <div className={"col-2  d-flex align-items-center"}>
+                    <p className={"text-center m-auto"}>
+                        {this.props.index}
+                    </p>
                 </div>
-                <div className={"col-4"}>
-                    <p>
+                <div className={"col-4 d-flex align-items-center"}>
+                    <p className={"text-center m-auto"}>
                         {this.props.username}
                     </p>
                 </div>
-                <div className={"col-4"}>
-                    <p>
+                <div className={"col-4  d-flex align-items-center"}>
+                    <p className={"text-center m-auto"}>
                         {this.props.score}
                     </p>
                 </div>
-                <div className={"col-2"}>
-                    <p>
-                        {this.props.date}
+                <div className={"col-2  d-flex align-items-center"}>
+                    <p className={"text-center m-auto"}>
+                        {this.props.date.toDateString()}
+                        <br/>
+                        {this.props.date.getHours()} : {this.props.date.getMinutes()} : {this.props.date.getSeconds()}
                     </p>
                 </div>
             </div>
