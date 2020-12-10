@@ -11,14 +11,6 @@ interface IState {
     scorecard:any[]
 }
 
-class HighScore{
-    _id?: String
-    name?:String
-    score?: Number
-    date?: Date
-    __v?:Number
-}
-
 export default class HighscoresPage extends React.Component<IProps, IState> {
     
     constructor(props: IProps) {
