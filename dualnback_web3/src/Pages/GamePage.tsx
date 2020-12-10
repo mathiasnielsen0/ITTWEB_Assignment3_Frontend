@@ -89,7 +89,7 @@ export default class GamePage extends React.Component<IProps, IState> {
     }
 
     render() {
-        if (!navigator.onLine) {
+        if (navigator.onLine) {
             return (
                 <div id="GamePageWrapper">
                     <BoardComponent incementScore={this.incrementScore} resetScore={this.resetScore}
