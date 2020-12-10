@@ -3,6 +3,8 @@ import { cursorTo } from "readline";
 import BoardComponent from "../Components/BoardComponent"
 import PublishHighscoreModal from "../Components/PublishHighscoreModal"
 import HighscoreApi from "../Apis/HighscoreApi"
+import Highscores from "./HighscoresPage";
+import Offline from "./Offline";
 
 interface IProps {
 
@@ -13,6 +15,7 @@ interface IState {
     currentScore: Number,
     currentHighscore: Number,
     showPublishHighscoreModal: boolean,
+    Online: boolean
 }
 
 export default class GamePage extends React.Component<IProps, IState> {
@@ -27,7 +30,10 @@ export default class GamePage extends React.Component<IProps, IState> {
             currentScore : 0,
             currentHighscore : 0,
             showPublishHighscoreModal : false,
+            Online : navigator.onLine
         }
+        
+        
         this.username = "";
         
         this.startGame = this.startGame.bind(this);
@@ -38,6 +44,15 @@ export default class GamePage extends React.Component<IProps, IState> {
         this.showPublishHighscoreModal = this.showPublishHighscoreModal.bind(this);
         this.setUsername = this.setUsername.bind(this);
     };
+    
+    componentDidMount(): void {
+        window.addEventListener('online',  () => {
+            this.setState({Online: true})
+        });
+        window.addEventListener('offline',  () => {
+            this.setState({Online: false})
+        });
+    }
 
 
     startGame() {
@@ -89,8 +104,6 @@ export default class GamePage extends React.Component<IProps, IState> {
     }
 
     render() {
-        if (navigator.onLine) {
-            console.log("online")
             return (
                 <div id="GamePageWrapper">
                     <BoardComponent incementScore={this.incrementScore} resetScore={this.resetScore}
@@ -106,34 +119,13 @@ export default class GamePage extends React.Component<IProps, IState> {
                             <b className="mr-2 ml-5">Currentscore:</b> {this.state.currentScore}
                             <b className="ml-5 mr-2">Highscore:</b> {this.state.currentHighscore}
                         </div>
-                        <a onClick={this.showPublishHighscoreModal} className="ml-5 btn btn-primary">Publish
-                            highscore</a>
+                        <button disabled={!this.state.Online} title={this.state.Online? "" : "This function is only available when connected to the internet"} onClick={this.showPublishHighscoreModal} className="ml-5 btn btn-primary">Publish
+                            highscore</button>
                     </div>
                     <PublishHighscoreModal publishResult={this.publishResult}
                                            show={this.state.showPublishHighscoreModal} setUsername={this.setUsername}
                                            highScore={this.state.currentHighscore} hideModal={this.hideModal}/>
                 </div>
             )
-        } else {
-            console.log("online")
-            return (
-                <div id="GamePageWrapper">
-                    <BoardComponent incementScore={this.incrementScore} resetScore={this.resetScore}
-                                    startGame={this.state.gameStarted}/>
-                    <div className="game-controls">
-                        {!this.state.gameStarted &&
-                        <a onClick={this.startGame} className="btn btn-primary">Start game</a>
-                        }
-                        <div className="game-stats">
-                            {this.state.gameStarted &&
-                            <div className="mr-2">Game started</div>
-                            }
-                            <b className="mr-2 ml-5">Currentscore:</b> {this.state.currentScore}
-                            <b className="ml-5 mr-2">Highscore:</b> {this.state.currentHighscore}
-                        </div>
-                    </div>
-                </div>
-            )
         }
-    }
 }

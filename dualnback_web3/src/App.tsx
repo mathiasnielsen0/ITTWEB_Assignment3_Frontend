@@ -14,43 +14,67 @@ import {
   Link
 } from "react-router-dom";
 import Offline from "./Pages/Offline";
+interface IProps {
+  
+}
+interface IState {
+  Online:boolean
+}
 
-function App() {
-  JwtTokenApi.getJwtToken();
-  let scorePage = <Highscores/>;
-  if(!navigator.onLine)
-  {
-    scorePage = <Offline/>
+class App extends React.Component<IProps,IState>{
+  constructor(props: IProps) {
+    super(props);
+    
+    this.state = {
+      Online : navigator.onLine
+    }
   }
+  componentDidMount(): void {
+    JwtTokenApi.getJwtToken();
+
+    window.addEventListener('online',  () => {
+      this.setState({Online: true})
+    });
+    window.addEventListener('offline',  () => {
+      this.setState({Online: false})
+    });
+
+
+  }
+
+render(){
   return (
-    <Router>
-    <div className="App">
+      <Router>
+        <div className="App">
 
-    <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="/">Dual n Back</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link href="/highscores">Highscores</Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
-    <div className="content-wrapper">
-      <Container>
-        <Switch>
-          <Route path="/highscores">
-            {scorePage}
-          </Route>
-          <Route path="/">
-            <Game />
-          </Route>
-        </Switch>
-      </Container>
-    </div>
+          <Navbar bg="light" expand="lg">
+            <Navbar.Brand href="/">Dual n Back</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="mr-auto">
+                <Nav.Link href="/highscores">Highscores</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
+          <div className="content-wrapper">
+            <Container>
+              <Switch>
+                <Route path="/highscores">
+                  {this.state.Online? <Highscores/> : <Offline/>}
+                </Route>
+                <Route path="/">
+                  <Game />
+                </Route>
+              </Switch>
+            </Container>
+          </div>
 
-    </div>
-  </Router>
+        </div>
+      </Router>
   );
+}
+
+ 
 }
 
 export default App;
