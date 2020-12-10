@@ -90,6 +90,7 @@ export default class GamePage extends React.Component<IProps, IState> {
 
     render() {
         if (navigator.onLine) {
+            console.log("online")
             return (
                 <div id="GamePageWrapper">
                     <BoardComponent incementScore={this.incrementScore} resetScore={this.resetScore}
@@ -114,6 +115,7 @@ export default class GamePage extends React.Component<IProps, IState> {
                 </div>
             )
         } else {
+            console.log("online")
             return (
                 <div id="GamePageWrapper">
                     <BoardComponent incementScore={this.incrementScore} resetScore={this.resetScore}
