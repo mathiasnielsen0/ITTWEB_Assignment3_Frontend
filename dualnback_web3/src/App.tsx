@@ -13,9 +13,15 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import Offline from "./Pages/Offline";
 
 function App() {
   JwtTokenApi.getJwtToken();
+  let scorePage = <Highscores/>;
+  if(!navigator.onLine)
+  {
+    scorePage = <Offline/>
+  }
   return (
     <Router>
     <div className="App">
@@ -33,7 +39,7 @@ function App() {
       <Container>
         <Switch>
           <Route path="/highscores">
-            <Highscores />
+            {scorePage}
           </Route>
           <Route path="/">
             <Game />

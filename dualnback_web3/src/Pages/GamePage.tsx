@@ -88,25 +88,50 @@ export default class GamePage extends React.Component<IProps, IState> {
         })
     }
 
-    render(){
-        return (
-            <div id="GamePageWrapper">
-                <BoardComponent incementScore={this.incrementScore} resetScore={this.resetScore} startGame={this.state.gameStarted}/>
-                <div className="game-controls">
-                    {!this.state.gameStarted &&
+    render() {
+        if (!navigator.onLine) {
+            return (
+                <div id="GamePageWrapper">
+                    <BoardComponent incementScore={this.incrementScore} resetScore={this.resetScore}
+                                    startGame={this.state.gameStarted}/>
+                    <div className="game-controls">
+                        {!this.state.gameStarted &&
                         <a onClick={this.startGame} className="btn btn-primary">Start game</a>
-                    }
-                    <div className="game-stats">
-                        {this.state.gameStarted &&
-                            <div className="mr-2">Game started</div>
                         }
-                        <b className="mr-2 ml-5">Currentscore:</b> {this.state.currentScore}
-                        <b className="ml-5 mr-2">Highscore:</b> {this.state.currentHighscore}
+                        <div className="game-stats">
+                            {this.state.gameStarted &&
+                            <div className="mr-2">Game started</div>
+                            }
+                            <b className="mr-2 ml-5">Currentscore:</b> {this.state.currentScore}
+                            <b className="ml-5 mr-2">Highscore:</b> {this.state.currentHighscore}
+                        </div>
+                        <a onClick={this.showPublishHighscoreModal} className="ml-5 btn btn-primary">Publish
+                            highscore</a>
                     </div>
-                    <a onClick={this.showPublishHighscoreModal} className="ml-5 btn btn-primary">Publish highscore</a>
+                    <PublishHighscoreModal publishResult={this.publishResult}
+                                           show={this.state.showPublishHighscoreModal} setUsername={this.setUsername}
+                                           highScore={this.state.currentHighscore} hideModal={this.hideModal}/>
                 </div>
-                <PublishHighscoreModal publishResult={this.publishResult} show={this.state.showPublishHighscoreModal} setUsername={this.setUsername} highScore={this.state.currentHighscore} hideModal={this.hideModal}/>
-            </div>
-      )
+            )
+        } else {
+            return (
+                <div id="GamePageWrapper">
+                    <BoardComponent incementScore={this.incrementScore} resetScore={this.resetScore}
+                                    startGame={this.state.gameStarted}/>
+                    <div className="game-controls">
+                        {!this.state.gameStarted &&
+                        <a onClick={this.startGame} className="btn btn-primary">Start game</a>
+                        }
+                        <div className="game-stats">
+                            {this.state.gameStarted &&
+                            <div className="mr-2">Game started</div>
+                            }
+                            <b className="mr-2 ml-5">Currentscore:</b> {this.state.currentScore}
+                            <b className="ml-5 mr-2">Highscore:</b> {this.state.currentHighscore}
+                        </div>
+                    </div>
+                </div>
+            )
+        }
     }
 }
