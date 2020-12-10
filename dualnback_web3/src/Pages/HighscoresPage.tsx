@@ -33,6 +33,7 @@ export default class HighscoresPage extends React.Component<IProps, IState> {
 
     websocketResponse = (message:any) => {
         console.log("websocketResponse")
+        console.log(message)
     }
 
     addScore = () =>{
