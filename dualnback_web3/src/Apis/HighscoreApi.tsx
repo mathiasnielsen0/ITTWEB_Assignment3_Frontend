@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/highscore/";
+const API_URL = window.location.hostname.includes("://localhost") ? "http://localhost:5000/highscore/" : " https://obscure-refuge-32890.herokuapp.com/highscore";
 const localstorage_token = "api_token"
 
 export class HighscoreApi {

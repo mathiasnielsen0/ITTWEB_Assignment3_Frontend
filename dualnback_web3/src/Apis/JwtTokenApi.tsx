@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:5000/jwt/";
+const API_URL = window.location.hostname.includes("://localhost") ? "http://localhost:5000/jwt/" : " https://obscure-refuge-32890.herokuapp.com/jwt/";
+//https://intense-wildwood-97387.herokuapp.com/
 const localstorage_token = "api_token"
 
 export class JwtTokenApi {
