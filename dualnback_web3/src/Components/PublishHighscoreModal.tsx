@@ -41,14 +41,24 @@ export default class CloseSessionConfirmModal extends React.Component<IModalProp
     }
 
     publishResult() {
-        this.props.hideModal();
-        this.props.publishResult();
-        this.setState({
-            show: false
-        })
+        console.log(this.state.username.length)
+        if(this.state.username.length > 0){
+            this.props.hideModal();
+            this.props.publishResult();
+            this.setState({
+                show: false
+            })
+        }else{
+            var ele = document.getElementById('info');
+            ele?.classList.remove("d-none")
+        }
     }
 
     private usernameChanged(e: any) {
+        if(e.target.value.length>0){
+            var ele = document.getElementById('info');
+            ele?.classList.add("d-none")
+        }
         this.setState({
             username: e.target.value
         });
@@ -77,6 +87,7 @@ export default class CloseSessionConfirmModal extends React.Component<IModalProp
                                 <input value={this.state.username} name="email" onChange={this.usernameChanged}
                                         className="py-2 px-4 text-gray-700 "
                                             id="inline-email" type="email" required placeholder="l33thacker"/>
+                                            <p id="info" className="d-none text-info">You must put in a name for your highscore</p>
                             </div>
                         </div>
 
