@@ -24,15 +24,15 @@ export default class HighscoresPage extends React.Component<IProps, IState> {
 
         WebSocket.start(this.websocketResponse)
     }
-    sc: any = [];
 
     websocketResponse = (message:any) => {
+        let sc:any = [];
         let index = 1;
         message.forEach((element:any) => {
-            this.sc.push(<ScoreCard key={element._id} index={index} username={element.name} score={element.score} date={element.date}/>)
+            sc.push(<ScoreCard key={element._id} index={index} username={element.name} score={element.score} date={element.date}/>)
             index++;
         });
-        this.setState({scorecard: this.sc});
+        this.setState({scorecard: sc});
     }
 
     // addScore = () =>{
