@@ -64,7 +64,8 @@ export default class GamePage extends React.Component<IProps, IState> {
     }
 
     async publishResult(){
-        await HighscoreApi.postHighscore(this.state.currentHighscore, this.username)
+        if(this.username.length > 0)
+            await HighscoreApi.postHighscore(this.state.currentHighscore, this.username)
     }
     
     hideModal() {
