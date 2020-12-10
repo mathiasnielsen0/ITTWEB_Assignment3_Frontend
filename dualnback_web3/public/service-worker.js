@@ -26,21 +26,6 @@ self.addEventListener('install', (event) => {
     });
 });
 
-fetch("/asset-manifest.json", {
-    method: "GET"
-}).then(function (response) {
-    if (response.ok) {
-        return response.json()
-    }
-}).then(function (data) {
-    let files = [];
-    Object.keys(data.files).forEach(item => {
-        files.push("./" + data.files[item])
-    });
-    console.log(files)
-    return files;
-});
-
 
 self.addEventListener('fetch', function (evt) {
 
@@ -57,7 +42,7 @@ function fromCache(request) {
     console.log('The service worker is serving the asset from cache');
     return caches.open(CACHE).then(function (cache) {
         return cache.match(request).then(function (matching) {
-            return matching || Promise.reject('no-match');
+            return matching || fromNetwork(request, 5000);
         }).catch(function () {
             return fromNetwork(request, 5000);
         });
