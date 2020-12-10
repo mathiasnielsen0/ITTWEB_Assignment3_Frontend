@@ -1,4 +1,4 @@
-const API_URL = window.location.hostname.includes("://localhost") ? "ws://localhost:5000" : " ws://obscure-refuge-32890.herokuapp.com/";
+const API_URL = window.location.hostname.includes("://localhost") ? "ws://localhost:5000" : "ws://obscure-refuge-32890.herokuapp.com/";
 class HighscoreWebSocket{
 
     start = async (callback:any) => {
