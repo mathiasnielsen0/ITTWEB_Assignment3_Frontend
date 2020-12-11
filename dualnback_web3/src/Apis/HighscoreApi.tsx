@@ -12,7 +12,7 @@ export class HighscoreApi {
     data.append("name", username);
     console.log("posting highscore", username, score)
     let success = false;
-    await fetch(API_URL + "add", {
+    fetch(API_URL + "add", {
       method: 'POST',
       headers: myHeaders,
       body: data,
