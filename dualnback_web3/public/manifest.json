@@ -17,6 +17,8 @@
       "type": "image/png",
       "sizes": "512x512"
     }
+  ],"permissions": [
+    "https://intense-wildwood-97387.herokuapp.com/*"
   ],
   "start_url": ".",
   "display": "standalone",
