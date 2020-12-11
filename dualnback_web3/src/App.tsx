@@ -52,6 +52,7 @@ render(){
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">
+                <Nav.Link href="/">Game</Nav.Link>
                 <Nav.Link href="/highscores">Highscores</Nav.Link>
               </Nav>
             </Navbar.Collapse>
