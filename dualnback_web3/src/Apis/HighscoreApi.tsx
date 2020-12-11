@@ -12,16 +12,19 @@ export class HighscoreApi {
     data.append("name", username);
     console.log("posting highscore", username, score)
     let success = false;
-    fetch(API_URL + "add", {
+    return await fetch(API_URL + "add", {
       method: 'POST',
       headers: myHeaders,
       body: data,
     })
     .then(response => {
-        if(response.ok)
+        if(response.ok){
             success = true;
+        }else{
+          success = false;
+        }
+        return success;
     });
-    return success;
   }
 }
 
