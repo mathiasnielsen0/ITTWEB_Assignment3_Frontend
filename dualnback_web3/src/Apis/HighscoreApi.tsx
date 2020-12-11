@@ -5,7 +5,6 @@ export class HighscoreApi {
 
   async postHighscore(score: Number, username: string) : Promise<boolean> {
     var myHeaders = new Headers();
-    myHeaders.append("Access-Control-Allow-Origin", "*")
     myHeaders.append("Authorization", "Bearer " + localStorage.getItem(localstorage_token))
     myHeaders.append("content-type","application/x-www-form-urlencoded");
     const data = new URLSearchParams();

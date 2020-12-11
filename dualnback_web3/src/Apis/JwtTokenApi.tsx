@@ -7,7 +7,6 @@ export class JwtTokenApi {
     async getJwtToken() : Promise<string | null | undefined> {
         if (localStorage.getItem(localstorage_token) == null) {
             var myHeaders = new Headers();
-            myHeaders.append("Access-Control-Allow-Origin", "*")
             
             await fetch(API_URL + "get", {
                 method: 'GET',
